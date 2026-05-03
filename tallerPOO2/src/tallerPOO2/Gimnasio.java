@@ -4,15 +4,25 @@ public class Gimnasio {
 	private int gymN;
 	private String lider;
 	private String estado;
-	private int contPokemons;
-	private Pokedex[] pokemons= new Pokedex[contPokemons];
-	public Gimnasio(int gymN, String lider, String estado, int contPokemons, Pokedex[] pokemons) {
+	private Pokedex[] pokemons;
+	public Gimnasio(int gymN, String lider, String estado, Pokedex[] pokemons) {
 		super();
 		this.gymN = gymN;
 		this.lider = lider;
 		this.estado = estado;
-		this.contPokemons = contPokemons;
 		this.pokemons = pokemons;
+	}
+	public int getGymN() {
+		return gymN;
+	}
+	public String getLider() {
+		return lider;
+	}
+	public String getEstado() {
+		return estado;
+	}
+	public Pokedex[] getPokemons() {
+		return pokemons;
 	}
 	
 }

@@ -1,14 +1,68 @@
 package tallerPOO2;
 //Nombre: Fernando Javier Lincopan Araya 
 //Rut: 21.860.800-0
-import java.util.*;
-import java.io.*;
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
 public class App {
 	public static Scanner lector;
 	public static void main(String[] args) {
-		lector= new Scanner(java.lang.System.in);
-	
-		
+		lector= new Scanner(System.in);
+		Sistema sistema= new Sistema(lecturaArchivo("Pokedex.txt"),lecturaArchivo("Alto Mando.txt"),lecturaArchivo("Gimnasios.txt"),lectorLista("Habitats.txt"),lecturaArchivo("Registros.txt"));
+		String decision="";
+		System.out.println("Bienvenido a Pokemon");
+		while(!decision.equals("3")) {
+			System.out.println("\r\n"+ "1) Continuar.\r\n"+ "2) Nueva Partida.\r\n"+ "3) Salir.\r\n"+ "");
+			System.out.print(">>> ");
+			decision= lector.nextLine();
+			switch(decision) {
+			case "1":
+			
+				break;
+			case "2":
+				System.out.print("\r\n"+"Ingrese Apodo: ");
+				String jugador= lector.nextLine();
+				String decisionJugador="";
+				System.out.println();
+				System.out.println("Bienvenido "+jugador+"!!"+"\r\n");
+				while(!decisionJugador.equals("8")) {
+					System.out.println(jugador+", que deseas hacer?");
+					System.out.println("\r\n"+ "1) Revisar equipo.\r\n"+ "2) Salir a capturar.\r\n"+ "3) Acceso al PC (cambiar Pokémon del equipo).\r\n"+ "4) Retar un gimnasio.\r\n"+ "5) Desafío al Alto Mando.\r\n"+ "6) Curar Pokémon.\r\n"+ "7) Guardar.\r\n"+ "8) Guardar y Salir.\r\n"+"");
+					System.out.print("Ingrese Opcion: ");
+					decisionJugador= lector.nextLine();
+					switch(decisionJugador) {
+					case "1":
+						break;
+					case "2":
+						break;
+					case "3":
+						break;
+					case "4":
+						break;
+					case "5":
+						break;
+					case "6":
+						break;
+					case "7":
+						break;
+					case "8":
+						break;
+					default:
+						System.out.println("\r\n"+"Error ingrese un valor valido."+"\r\n");
+						break;
+					}
+					
+				}
+				break;
+			case "3":
+				System.out.println("\r\n"+"Cerrando juego...");
+				break;
+			default:
+				System.out.println("Error ingrese un valor valido.");
+				break;
+			}
+		}
 		
 		lector.close();
 	}
@@ -17,24 +71,38 @@ public class App {
 		ArrayList<ArrayList<String>> matriz= new ArrayList<>();
 		File texto= new File(titulo);
 		try {
-			lector= new Scanner(texto);
-			while(lector.hasNextLine()) {
+			Scanner lec= new Scanner(texto);
+			while(lec.hasNextLine()) {
 				ArrayList<String> lista= new ArrayList();
-				String linea= lector.nextLine();
+				String linea= lec.nextLine();
 				String[] partes= linea.split(";");
 				for(String p: partes) {
 				lista.add(p);	
 				}
 				matriz.add(lista);
 			}
-			
-			
-			
-			
+			lec.close();
 		}catch(FileNotFoundException e) {
 			java.lang.System.out.println("Error no se a encontrado el archivo.");
 		}
+		
 		return matriz;
+	}
+	public static  ArrayList<String> lectorLista(String titulo){
+		ArrayList<String> lista= new ArrayList();
+		File texto= new File(titulo);
+		try {
+			Scanner lector= new Scanner(texto);
+			while(lector.hasNextLine()) {
+				String palabra= lector.nextLine();
+				lista.add(palabra);
+			}
+		lector.close();
+		}catch(FileNotFoundException e) {
+			java.lang.System.out.println("Error no se a encontrado el archivo.");
+		}
+		
+		return lista;
 	}
 	
 }
