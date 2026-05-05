@@ -7,9 +7,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 public class App {
 	public static Scanner lector;
+	public static Sistema sistema;
 	public static void main(String[] args) {
 		lector= new Scanner(System.in);
-		Sistema sistema= new Sistema(lecturaArchivo("Pokedex.txt"),lecturaArchivo("Alto Mando.txt"),lecturaArchivo("Gimnasios.txt"),lectorLista("Habitats.txt"),lecturaArchivo("Registros.txt"));
+		sistema= new Sistema(lecturaArchivo("Pokedex.txt"),lecturaArchivo("Alto Mando.txt"),lecturaArchivo("Gimnasios.txt"),lectorLista("Habitats.txt"),lecturaArchivo("Registros.txt"));
 		String decision="";
 		System.out.println("Bienvenido a Pokemon");
 		while(!decision.equals("3")) {
@@ -33,8 +34,10 @@ public class App {
 					decisionJugador= lector.nextLine();
 					switch(decisionJugador) {
 					case "1":
+						eleccionJugador1();
 						break;
 					case "2":
+						eleccionJugador2();
 						break;
 					case "3":
 						break;
@@ -104,5 +107,72 @@ public class App {
 		
 		return lista;
 	}
-	
+	public static void eleccionJugador1() {
+		ArrayList<Pokedex> jugador= sistema.getJugador().getPcJugador();
+		if(jugador == null || jugador.isEmpty()) {
+			System.out.println("\r\n"+"No existe pokemones en tu equipo."+"\r\n");
+		}else {
+			System.out.println("\r\n"+"Equipo Actual:");
+			int i=1;
+			for(Pokedex poke: jugador) {
+				System.out.println(i+") "+poke.getPokemon()+"|"+poke.getTipo()+"|Stats totales: "+(poke.getAtaque()+poke.getAtaqueEspecial()+poke.getDefensa()+poke.getDefensaEspecial()+poke.getVelocidad()+poke.getVida()));
+				i++; 	
+			}
+			System.out.println();
+		}
+		
+	}
+	public static void eleccionJugador2() {
+		System.out.println("\r\n"+"Donde deseas ir a explorar?"+"\r\n");
+		System.out.println("Zonas disponibles:"+"\r\n");
+		ArrayList<String> listaHabitats= sistema.getListaHabitats();
+		for(int i=0;i<listaHabitats.size();i++) {
+			System.out.println((i+1)+") "+listaHabitats.get(i));
+		}System.out.println((listaHabitats.size()+1)+") Volver al menu.");
+		System.out.print("\r\n"+"Ingrese Zona: ");
+		try {
+			int zona= Integer.parseInt(lector.nextLine());
+			 if((listaHabitats.size()+1)!=zona) {
+				Pokedex pokemon= sistema.pokemonesZona(zona);
+				System.out.println("\r\n"+"Oh!! Ha aparecido un increible "+pokemon.getPokemon()+"!!\r\n"+ "\r\n"+ "Que deseas hacer?\r\n"+ "\r\n"+ "1) Capturar\r\n"+ "2) Huir");
+				System.out.print("\r\n"+"Ingrese Opcion: ");
+				String opcion= lector.nextLine();
+				switch(opcion) {
+				case "1":
+					if(sistema.verificarPokemon(pokemon)) {
+						System.out.println("");
+					}else {
+						sistema.agregarPokemon(pokemon);
+						System.out.println("\r\n"+pokemon.getPokemon()+" capturado con exito!!"+"\r\n"+"\r\n"+pokemon.getPokemon()+" ha sido agregado a tu equipo!"+"\r\n");
+					}
+					break;
+				case "2":
+					System.out.println("\r\n"+"Has huido con exito!!"+"\r\n");
+					break;
+				default:
+					System.out.println("\r\n"+"Error ingrese un valor valido."+"\r\n");
+					break;
+				}
+			 }
+		}catch(NumberFormatException e) {
+			System.out.println("\r\n"+"Error ingrese un valor valido."+"\r\n");
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
 }

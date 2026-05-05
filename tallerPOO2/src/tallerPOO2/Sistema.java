@@ -1,6 +1,6 @@
 package tallerPOO2;
 import java.util.ArrayList;
-
+import java.util.Random;
 public class Sistema {
 	private ArrayList<Pokedex> listaPokedex= new ArrayList();
 	private ArrayList<AltosMandos> listaAltosMandos= new ArrayList(); 
@@ -33,6 +33,43 @@ public class Sistema {
 	public Jugador getJugador() {
 		return jugador;
 	}
-	
+	public boolean verificarPokemon(Pokedex pokemon) {
+		boolean existe=false;
+		for(Pokedex poke: listaPokedex) {
+			if(poke.getPokemon().equals(pokemon)) {
+				existe=true;
+				return existe;
+			}
+		}
+		return existe;
+	}
+	public void agregarPokemon(Pokedex pokemon) {
+		jugador.agregarPokemon(pokemon);
+	}
+	public Pokedex pokemonesZona(int indiceZona){
+		ArrayList<Pokedex> pokemones= new ArrayList<>();
+		String zona="";
+		for(int i=0;i<listaHabitats.size();i++) {
+			if(i==(indiceZona-1)) {
+				zona= listaHabitats.get(i);
+			}
+		}
+		for(Pokedex poke: listaPokedex) {
+			if(zona.equals(poke.getHabitad())) {
+				pokemones.add(poke);
+			}
+		}
+		int j=0;
+		Pokedex[] pokeProbabilidad= new Pokedex[100];
+		for(Pokedex poke:pokemones) {
+			for(int i=0;i<Math.round(poke.getPorcentajeAparicion()*100);i++) {
+				pokeProbabilidad[j]=poke;
+				j++;
+			}
+		}
+		Random random= new Random();
+		 int indiceAleatorio = random.nextInt(pokeProbabilidad.length);
+		return pokeProbabilidad[indiceAleatorio];
+	}
 	
 }

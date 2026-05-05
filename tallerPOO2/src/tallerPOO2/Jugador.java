@@ -3,8 +3,8 @@ package tallerPOO2;
 import java.util.ArrayList;
 
 public class Jugador {
-	private ArrayList<Pokedex> pcJugador;
-	private ArrayList<String> estadoPokemones;
+	private ArrayList<Pokedex> pcJugador= new ArrayList<>();
+	private ArrayList<String> estadoPokemones= new ArrayList<>();
 	
 	public ArrayList<Pokedex> getPcJugador() {
 		return pcJugador;
