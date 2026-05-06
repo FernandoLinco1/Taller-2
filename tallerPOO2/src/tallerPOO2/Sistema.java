@@ -34,14 +34,13 @@ public class Sistema {
 		return jugador;
 	}
 	public boolean verificarPokemon(Pokedex pokemon) {
-		boolean existe=false;
-		for(Pokedex poke: listaPokedex) {
-			if(poke.getPokemon().equals(pokemon)) {
-				existe=true;
-				return existe;
+		
+		for(Pokedex poke: jugador.getPcJugador()) {
+			if(poke.getPokemon().equals(pokemon.getPokemon())) {
+				return true;
 			}
 		}
-		return existe;
+		return false;
 	}
 	public void agregarPokemon(Pokedex pokemon) {
 		jugador.agregarPokemon(pokemon);
@@ -71,5 +70,23 @@ public class Sistema {
 		 int indiceAleatorio = random.nextInt(pokeProbabilidad.length);
 		return pokeProbabilidad[indiceAleatorio];
 	}
-	
+	public void intercambioPokemones(int pokemon1, int pokemon2) {
+		Pokedex aux= jugador.getPcJugador().get(pokemon1-1);
+		String auxEstado= jugador.getEstadoPokemones().get(pokemon1-1);
+		for(int i=0;i<jugador.getPcJugador().size();i++) {
+			if(i==(pokemon1-1)) {
+				jugador.getPcJugador().set(i, jugador.getPcJugador().get(pokemon2-1));
+				jugador.getEstadoPokemones().set(i, jugador.getEstadoPokemones().get(pokemon2-1));
+			}
+			if(i==(pokemon2-1)) {
+				jugador.getPcJugador().set(i,aux);
+				jugador.getEstadoPokemones().set(i,auxEstado);
+			}
+		}
+	}
+	public void curarPokemones() {
+		for(String estado:jugador.getEstadoPokemones()) {
+			estado="Vivo";
+		}
+	}
 }

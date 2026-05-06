@@ -40,12 +40,14 @@ public class App {
 						eleccionJugador2();
 						break;
 					case "3":
+						eleccionJugador3(jugador);
 						break;
 					case "4":
 						break;
 					case "5":
 						break;
 					case "6":
+						eleccionJugador6();
 						break;
 					case "7":
 						break;
@@ -115,8 +117,10 @@ public class App {
 			System.out.println("\r\n"+"Equipo Actual:");
 			int i=1;
 			for(Pokedex poke: jugador) {
+				if(i<=6) {
 				System.out.println(i+") "+poke.getPokemon()+"|"+poke.getTipo()+"|Stats totales: "+(poke.getAtaque()+poke.getAtaqueEspecial()+poke.getDefensa()+poke.getDefensaEspecial()+poke.getVelocidad()+poke.getVida()));
 				i++; 	
+				}
 			}
 			System.out.println();
 		}
@@ -140,10 +144,15 @@ public class App {
 				switch(opcion) {
 				case "1":
 					if(sistema.verificarPokemon(pokemon)) {
-						System.out.println("");
+						System.out.println("\r\n"+pokemon.getPokemon()+" a escapado..."+"\r\n");
 					}else {
 						sistema.agregarPokemon(pokemon);
-						System.out.println("\r\n"+pokemon.getPokemon()+" capturado con exito!!"+"\r\n"+"\r\n"+pokemon.getPokemon()+" ha sido agregado a tu equipo!"+"\r\n");
+						
+						if((sistema.getJugador().getPcJugador().size())>6) {
+							System.out.println("\r\n"+pokemon.getPokemon()+" capturado con exito!!"+"\r\n"+"\r\n"+pokemon.getPokemon()+" ha sido agregado a tu PC!"+"\r\n");
+						}else {
+							System.out.println("\r\n"+pokemon.getPokemon()+" capturado con exito!!"+"\r\n"+"\r\n"+pokemon.getPokemon()+" ha sido agregado a tu equipo!"+"\r\n");	
+						}
 					}
 					break;
 				case "2":
@@ -157,22 +166,57 @@ public class App {
 		}catch(NumberFormatException e) {
 			System.out.println("\r\n"+"Error ingrese un valor valido."+"\r\n");
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	}
+	public static void eleccionJugador3(String jugador) {
+		ArrayList<Pokedex> pokemonesJugador= sistema.getJugador().getPcJugador();
+		if(pokemonesJugador == null || pokemonesJugador.isEmpty()) {
+			System.out.println("\r\n"+"No existe pokemones en tu PC."+"\r\n");
+		}else {
+			System.out.println("\r\n"+"PC "+jugador+":");
+			int i=1;
+			for(Pokedex poke: pokemonesJugador) {
+				System.out.println(i+") "+poke.getPokemon()+"|"+poke.getTipo()+"|Stats totales: "+(poke.getAtaque()+poke.getAtaqueEspecial()+poke.getDefensa()+poke.getDefensaEspecial()+poke.getVelocidad()+poke.getVida()));
+				i++; 	
+				
+			}
+			System.out.println();
+			System.out.println("1) Cambiar Pokémon."+"\r\n"+"2) Salir. ");
+			System.out.print("Ingrese Opcion: ");
+			String decision= lector.nextLine();
+			switch(decision) {
+			case "1":
+				try {
+					System.out.print("Seleccione pokemon 1 (por su enumeracion en la lista): ");
+					int pokemon1= Integer.parseInt(lector.nextLine());
+					System.out.print("Seleccione pokemon 2 (por su enumeracion en la lista): ");
+					int pokemon2= Integer.parseInt(lector.nextLine());
+					if(pokemon1!=pokemon2 && pokemon1<pokemonesJugador.size() && pokemon2<pokemonesJugador.size()) {
+						sistema.intercambioPokemones(pokemon1, pokemon2);
+						System.out.println("Se han cambiado con exito!!");
+					}else if(pokemon1==pokemon2 && pokemon1<pokemonesJugador.size() && pokemon2<pokemonesJugador.size()) {
+						System.out.println("\r\n"+"Error los valores ingresado son iguales."+"\r\n");
+					}else {
+						System.out.println("\r\n"+"Error ingrese valores valido."+"\r\n");
+					}
+					
+				}catch(NumberFormatException e) {
+					System.out.println("\r\n"+"Error ingrese un valor valido."+"\r\n");
+				}
+				break;
+			case "2":
+				System.out.println();
+				break;
+			default:
+				System.out.println("\r\n"+"Error ingrese un valor valido."+"\r\n");
+				break;
+			}
+		}
+	}
+	
+	public static void eleccionJugador6() {
+		sistema.curarPokemones();
+		for( String estado:sistema.getJugador().getEstadoPokemones()) {
+			System.out.println(estado);
+		}
 	}
 }
