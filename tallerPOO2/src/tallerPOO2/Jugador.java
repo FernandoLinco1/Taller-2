@@ -12,9 +12,9 @@ public class Jugador {
 	public void agregarLider(Gimnasio lider) {
 		lideresDerrotados.add(lider);
 	}
-	public void agregarPokemon(Pokedex pokemon) {
+	public void agregarPokemon(Pokedex pokemon, String estado) {
 		pcJugador.add(pokemon);
-		estadoPokemones.add("Vivo");
+		estadoPokemones.add(estado);
 	}
 	public ArrayList<String> getEstadoPokemones() {
 		return estadoPokemones;
@@ -27,5 +27,12 @@ public class Jugador {
 	}
 	public void curarPokemones(int i) {
 		estadoPokemones.set(i, "Vivo");
+	}
+	public void intercambioPokemon(int indice,Pokedex aux,String auxEstado,int indice2,Pokedex aux2,String auxEstado2) {
+		pcJugador.set(indice, aux2);
+		estadoPokemones.set(indice, auxEstado2);
+		pcJugador.set(indice2, aux);
+		estadoPokemones.set(indice2, auxEstado);
+		
 	}
 }
