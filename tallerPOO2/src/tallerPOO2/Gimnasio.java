@@ -24,5 +24,8 @@ public class Gimnasio {
 	public Pokedex[] getPokemons() {
 		return pokemons;
 	}
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
 	
 }

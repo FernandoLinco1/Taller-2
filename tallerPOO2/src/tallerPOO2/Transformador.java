@@ -51,7 +51,7 @@ public class Transformador {
 			Pokedex[] pokemones= new Pokedex[Integer.parseInt(l.get(3))];
 			for(int i=0;i<pokemones.length;i++) {//sumarle +3 a la i a la hora de ocupar el nombre del pokemon dentro de la lista
 				for(Pokedex k: listaPokedex) {
-					if(l.get(i+3).equals(k.getPokemon())) {
+					if(l.get(i+4).equals(k.getPokemon())) {
 						pokemones[i]= k;
 					}
 				}

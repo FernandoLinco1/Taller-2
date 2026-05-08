@@ -6,8 +6,8 @@ public class Sistema {
 	private ArrayList<AltosMandos> listaAltosMandos= new ArrayList(); 
 	private ArrayList<Gimnasio> listaGimnasios = new ArrayList();  
 	private ArrayList<String> listaHabitats= new ArrayList(); 
-	private ArrayList<ArrayList<String>> Registros= new ArrayList();
 	private Jugador jugador = new Jugador();
+	private TablaTipos tablaTipos= new TablaTipos();
 	public Sistema(ArrayList<ArrayList<String>> listaPokedex,ArrayList<ArrayList<String>> listaAltosMandos, ArrayList<ArrayList<String>> listaGimnasios,
 			ArrayList<String> listaHabitats, ArrayList<ArrayList<String>> registros) {
 		super();
@@ -16,7 +16,6 @@ public class Sistema {
 		this.listaAltosMandos = t.transA(listaAltosMandos,this.listaPokedex);
 		this.listaGimnasios = t.transG(listaGimnasios,this.listaPokedex);
 		this.listaHabitats = listaHabitats;
-		Registros = registros;
 	}
 	public ArrayList<Pokedex> getListaPokedex() {
 		return listaPokedex;
@@ -85,8 +84,41 @@ public class Sistema {
 		}
 	}
 	public void curarPokemones() {
-		for(String estado:jugador.getEstadoPokemones()) {
-			estado="Vivo";
+		for(int i=0;i<jugador.getEstadoPokemones().size();i++) {
+			jugador.curarPokemones(i);
 		}
+	}
+	public double tablaTipo(String tipo1, String tipo2) {
+		 return tablaTipos.efectividadTipo(tipo1, tipo2);
+	}
+	public void setEstado(String estado, Gimnasio lider){
+		for(int i=0;i<listaGimnasios.size();i++){
+			if(listaGimnasios.get(i).equals(lider)) {
+				listaGimnasios.get(i).setEstado(estado);
+			}
+		}
+		
+	}
+	public void setEstadoP(int indice){
+		jugador.setEstadoPokemon(indice);
+		
+	}
+	public void agregarLider(Gimnasio lider) {
+		jugador.agregarLider(lider);
+	}
+	public String leerRegistro(ArrayList<ArrayList<String>> Registros) {
+		
+		String jugador="";
+		for(int i=0;i<Registros.size();i++) {
+			for(int j=0;j<Registros.get(i).size();j++) {
+				if(i==0 && j==0) {
+					jugador=Registros.get(i).get(j);
+				}else if(i==0) {
+					
+				}
+			}
+		}
+		return jugador;
+		
 	}
 }
