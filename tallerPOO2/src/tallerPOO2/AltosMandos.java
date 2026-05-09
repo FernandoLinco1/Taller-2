@@ -10,6 +10,7 @@ public class AltosMandos {
 		this.nombreAltoMando = nombreAltoMando;
 		this.pokemons = pokemons;
 	}
+	
 	public int getAltoMandoN() {
 		return altoMandoN;
 	}
